@@ -100,3 +100,54 @@ function sumZero(arr) {
   }
 }
 ```
+
+## Sliding Window
+
+This pattern involves creating a window which can either be an array or number from one position to anyother. Depending on a certain condition, the window either increases or closes (and a new window is created).
+Very useful for keeping track ofa subset of data in array/string.
+
+```javascript
+// write a function maxSubarraySum which accepts an array of integers
+// and a number called n. The function should calculate the max sum of n
+// consecutive elements in the array
+//"Naive"
+function maxSubArraySum(arr, n) {
+  if (num > arr.length) return null;
+
+  const max = -Infinity;
+
+  for (let i = 0; i < arr.length - num + 1; i++) {
+    temp += arr[i + j];
+
+    if (temp > max) {
+      max = temp;
+    }
+  }
+
+  return max;
+}
+
+// Time O(n)
+function maxSubarraySum(arr, num) {
+  if (arr.length < num) return null;
+
+  let maxSum = 0;
+  let tempSum = 0;
+
+  for (let i = num; i < arr.length; i++) {
+    maxSum += arr[i];
+  }
+
+  tempSum = maxSum;
+
+  for (let i = num; i < arr.length; i++) {
+    tempSum = tempSum - arr[i - num] + arr[i];
+    maxSum = Math.max(maxSum, tempSum);
+  }
+
+  return maxSum;
+}
+
+maxSubarraySum([], 4); // null
+maxSubarraySum([4, 2, 1, 6], 1); // 13
+```
