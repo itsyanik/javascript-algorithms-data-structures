@@ -60,3 +60,43 @@ function same(arr1, arr2) {
   return true;
 }
 ```
+
+## Multiple Pointers
+
+This one works when we have multiple values and we start looking up from both sides of our list of values. One from the beggining and one from the end, working towards the middle.
+Example: a function that accepts a **sorted** array of integers, and it should find the **first** pair where the sum is **zero**. It should return an array that includes both values that sum zero, or _undefined_ if a pair does not exist.
+Or count unique values in an array.
+
+```javascript
+// "Naive" solution
+// Time O(n²)
+// Space O(1)
+function sumZero(arr) {
+  for (let i = 0; i < arr.length; i++) {
+    for (let j = 0; j < arr.length; j++) {
+      if (arr[i] + arr[j] === 0) {
+        return [arr[i], arr[j]];
+      }
+    }
+  }
+}
+
+// Time O(n)
+// Space O(1)
+function sumZero(arr) {
+  let left = 0;
+  let right = arr.length - 1;
+
+  while (left < right) {
+    let sum = arr[left] + arr[right];
+
+    if (sum === 0) {
+      return [arr[left], arr[right]];
+    } else if (sum > 0) {
+      right--;
+    } else {
+      left--;
+    }
+  }
+}
+```
